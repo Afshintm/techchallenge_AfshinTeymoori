@@ -1,18 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using LetsBet.BusinessServices;
 using LetsBet.Models;
+using Moq;
+using NUnit.Framework;
 
 namespace LetsBet.UnitTests
 {
+    [TestFixture]
     public class BaseBusinessServicesTests
     {
+        public Mock<IHttpClientManager> HttpClientManagerMock;
+        public Mock<IConfiguration> ConfigurationMock;
+        public Mock<IBetBusinessServices> BetBusinessServicesMock;
+        public Mock<ICustomerBusinessServices> CustomerBusinessServicesMock;
+        
+
+        public ICustomerBusinessServices CustomerBusinessServices;
+        public IBetBusinessServices BetBusinessServices;
+        
+
         public List<Customer> Customers { get; set; }
         public List<Bet> Bets { get; set; }
         public List<Race> Races { get; set; }
-
+        [SetUp]
         public void Setup()
         {
             initFakes();
+            ConfigurationMock = new Mock<IConfiguration>();
+            ConfigurationMock.Setup(x => x.GetSection(It.IsAny<string>())[It.IsAny<string>()]).Returns("");
+            HttpClientManagerMock = new Mock<IHttpClientManager>(MockBehavior.Default);
+            HttpClientManagerMock.Setup(x => x.GetAsync<List<Customer>>(It.IsAny<string>())).Returns(() => Task.FromResult(Customers));
+            HttpClientManagerMock.Setup(x => x.GetAsync<List<Bet>>(It.IsAny<string>())).Returns(() => Task.FromResult(Bets));
+            HttpClientManagerMock.Setup(x => x.GetAsync<List<Race>>(It.IsAny<string>())).Returns(() => Task.FromResult(Races));
+            
+            BetBusinessServices = new BetBusinessServices(HttpClientManagerMock.Object, ConfigurationMock.Object);
+            CustomerBusinessServices = new CustomerBusinessServices(HttpClientManagerMock.Object, ConfigurationMock.Object, BetBusinessServices);
+            
         }
 
         private void initFakes()
