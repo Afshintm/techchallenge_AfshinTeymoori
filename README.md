@@ -31,7 +31,7 @@ Get all races: http://localhost:49900/api/races
 
 
 
-### Get up and running with front-end App###
+### Get up and running with front-end App ###
 
 A simple angularJs 1.6 project to show the Races detail report
 
