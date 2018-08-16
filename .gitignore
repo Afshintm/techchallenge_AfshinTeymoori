@@ -75,3 +75,18 @@ x64/
 *.VisualState.xml
 TestResult.xml
 
+# front-end app 
+
+dist
+.log
+.tmp
+
+.sass-cache
+
+logs/*
+!.gitkeep
+node_modules
+tmp
+.idea
+.DS_Store
+bower_components

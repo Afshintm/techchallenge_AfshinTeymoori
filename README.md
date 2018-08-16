@@ -19,7 +19,30 @@ Webapi has got 4 projects. Autofac is Dependency Injection used.
 To get the web api application up and running just clone it and open Backend.sln using visual studio 2017 then Build and run it.
 
 ##Api Endpoint:##
+Get request to show race details: http://localhost:49900/api/races/v1/details
+
+Older version: http://localhost:49900/api/races/details
+
+Get Customer Risk info: http://localhost:49900/api/customers/risks
+
+Get all races: http://localhost:49900/api/races
+
 
 
 ### Ge up and running with front-end ###
-A simple angularJs 1.6 project to show the Race detail report
+A simple angularJs 1.6 project to show the Races detail report
+
+Please run under node version 9.4.0
+install npm packages and bower dependencies using following commands 
+
+1- npm install -g grunt-cli
+
+2- npm install
+
+3- bower install
+
+4- grunt serve
+
+race details report: http://localhost:9000/#!/main
+
+
