@@ -86,6 +86,7 @@ namespace LetsBet.Api
             builder.RegisterType<HttpClientManager>().As<IHttpClientManager>().SingleInstance();
             builder.RegisterGeneric(typeof(BaseBusinessServices<>)).As(typeof(IBaseBusinessService<>)).InstancePerLifetimeScope();
             builder.RegisterType<CustomerBusinessServices>().As<ICustomerBusinessServices>().InstancePerLifetimeScope();
+            builder.RegisterType<RaceBusinessServices>().As<IRaceBusinessServices>().InstancePerLifetimeScope();
             builder.RegisterType<BetBusinessServices>().As<IBetBusinessServices>().InstancePerLifetimeScope();
 
 
