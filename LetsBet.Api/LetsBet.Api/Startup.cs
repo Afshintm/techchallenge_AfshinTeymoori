@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using LetsBet.BusinessServices;
@@ -10,40 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace LetsBet.Api
 {
-    //public class Startup
-    //{
-    //    public Startup(IConfiguration configuration)
-    //    {
-    //        Configuration = configuration;
-    //    }
-
-    //    public IConfiguration Configuration { get; }
-
-    //    // This method gets called by the runtime. Use this method to add services to the container.
-    //    public void ConfigureServices(IServiceCollection services)
-    //    {
-    //        services.AddMvc();
-    //    }
-
-    //    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    //    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-    //    {
-    //        if (env.IsDevelopment())
-    //        {
-    //            app.UseDeveloperExceptionPage();
-    //        }
-
-    //        app.UseMvc();
-    //    }
-    //}
-    //=====================================
-
-    //==========================================
-
+    
     public class Startup
     {
         public Startup(IHostingEnvironment env)
@@ -68,6 +35,16 @@ namespace LetsBet.Api
             services.AddCors();
             services.AddMvc();
 
+            var builder = AppContainerBuilder(services);
+
+            this.ApplicationContainer = builder.Build();
+
+            // Create the IServiceProvider based on the container.
+            return new AutofacServiceProvider(this.ApplicationContainer);
+        }
+
+        private static ContainerBuilder AppContainerBuilder(IServiceCollection services)
+        {
             // Create the container builder.
             var builder = new ContainerBuilder();
 
@@ -84,16 +61,12 @@ namespace LetsBet.Api
             // in the ServiceCollection. Mix and match as needed.
             builder.Populate(services);
             builder.RegisterType<HttpClientManager>().As<IHttpClientManager>().SingleInstance();
-            builder.RegisterGeneric(typeof(BaseBusinessServices<>)).As(typeof(IBaseBusinessService<>)).InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(BaseBusinessServices<>)).As(typeof(IBaseBusinessService<>))
+                .InstancePerLifetimeScope();
             builder.RegisterType<CustomerBusinessServices>().As<ICustomerBusinessServices>().InstancePerLifetimeScope();
             builder.RegisterType<RaceBusinessServices>().As<IRaceBusinessServices>().InstancePerLifetimeScope();
             builder.RegisterType<BetBusinessServices>().As<IBetBusinessServices>().InstancePerLifetimeScope();
-
-
-            this.ApplicationContainer = builder.Build();
-
-            // Create the IServiceProvider based on the container.
-            return new AutofacServiceProvider(this.ApplicationContainer);
+            return builder;
         }
 
         // Configure is where you add middleware. This is called after
