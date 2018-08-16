@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LetsBet.BusinessServices\LetsBet.BusinessServices.csproj" />
+    <ProjectReference Include="..\LetsBet.Models\LetsBet.Models.csproj" />
+  </ItemGroup>
+
+</Project>
