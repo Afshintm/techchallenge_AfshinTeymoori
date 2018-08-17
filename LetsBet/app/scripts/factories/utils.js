@@ -35,6 +35,7 @@ angular.module('horseRacingApp')
 			}
 			try{
 				if(method==='get')
+				{
 					$http.get(apiAddress).then(
 					function(data){
 						defered.resolve(data.data);
@@ -42,7 +43,8 @@ angular.module('horseRacingApp')
 						console.log('Failure to get the data from ' + apiAddress);
 						defered.reject(reason);
 					});
-				else if(method==='post')
+				}
+				else if(method==='post'){
 					$http.post(apiAddress,postData).then(
 					function(data){
 						defered.resolve(data.data);
@@ -51,7 +53,7 @@ angular.module('horseRacingApp')
 						console.log(postData);
 						defered.reject(reason);
 					});
-
+				}
 			}
 			catch(e){
 				defered.reject(e);

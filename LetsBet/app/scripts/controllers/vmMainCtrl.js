@@ -40,8 +40,9 @@ angular.module('horseRacingApp').controller('vmMainCtrl',['$scope','utils','ENV'
 	}
 	function getProductName(id){
 		for (var i = model.productList.length - 1; i >= 0; i--) {
-		 	if((model.productList[i]).Id ===id)
+		 	if((model.productList[i]).Id ===id){
 		 		return model.productList[i].Name;
+		 	}
 		 } 
 		 return null ;
 	}
@@ -73,20 +74,27 @@ angular.module('horseRacingApp').controller('vmMainCtrl',['$scope','utils','ENV'
 	};
 
 	$scope.inDispenceStatus = function(){
-		if (model.dispenseModel)
-			if(model.dispenseModel.productId>0)
+		if (model.dispenseModel){
+			if(model.dispenseModel.productId>0){
 				return true;
+			}
+		}
 	};
 	
 	$scope.getDispencedItem = function(){
-		if($scope.inDispenceStatus())	return model.dispenseModel.productName;
+		if($scope.inDispenceStatus())	
+			{
+				return model.dispenseModel.productName;
+			}
 		return null;
 	};
 
 	$scope.isAnyChangeAvailable = function(){
-		if (model.dispenseModel)
-			if(model.dispenseModel.changeSetup!=='' && model.dispenseModel.changeValue>0)
+		if (model.dispenseModel){
+			if(model.dispenseModel.changeSetup!=='' && model.dispenseModel.changeValue>0){
 				return true;
+			}
+		}
 	};
 
 	getAvailableStock();

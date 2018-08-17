@@ -16,6 +16,7 @@ angular.module('horseRacingApp')
             console.log(data);
             $scope.model.raceList = data;
         }, function(reason){
+            console.log(reason);
         });
     }
     getRaceList();
