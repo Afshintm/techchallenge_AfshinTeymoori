@@ -19,7 +19,7 @@ Webapi has got 4 projects.
 4- Unit testing -  for Business Services unit testing
 
 
-###Api Endpoints:###
+### Api Endpoints: ###
 
 Get request to show race details: http://localhost:49900/api/races/v1/details
 
@@ -31,11 +31,11 @@ Get all races: http://localhost:49900/api/races
 
 
 
-### Get up and running with front-end App###
+### Get up and running with front-end App ###
 
 A simple angularJs 1.6 project to show the Races detail report
 
-###Important###
+### Important ###
 WebApi should be running for the following website to work.
 
 Please run under node version 9.4.0
