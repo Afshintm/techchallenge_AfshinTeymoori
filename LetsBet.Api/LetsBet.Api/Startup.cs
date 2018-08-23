@@ -35,7 +35,8 @@ namespace LetsBet.Api
             services.AddCors();
             services.AddMvc();
 
-            var builder = AppContainerBuilder(services);
+            //var builder = AppContainerBuilder(services);
+            var builder = services.GetAppContainerBuilder();
 
             this.ApplicationContainer = builder.Build();
 
@@ -60,14 +61,10 @@ namespace LetsBet.Api
             // AFTER Populate those registrations can override things
             // in the ServiceCollection. Mix and match as needed.
             builder.Populate(services);
-            builder.RegisterType<HttpClientManager>().As<IHttpClientManager>().SingleInstance();
-            builder.RegisterGeneric(typeof(BaseBusinessServices<>)).As(typeof(IBaseBusinessService<>))
-                .InstancePerLifetimeScope();
-            builder.RegisterType<CustomerBusinessServices>().As<ICustomerBusinessServices>().InstancePerLifetimeScope();
-            builder.RegisterType<RaceBusinessServices>().As<IRaceBusinessServices>().InstancePerLifetimeScope();
-            builder.RegisterType<BetBusinessServices>().As<IBetBusinessServices>().InstancePerLifetimeScope();
-            return builder;
+            return builder.RegisterAppComponents(services);
         }
+
+       
 
         // Configure is where you add middleware. This is called after
         // ConfigureServices. You can use IApplicationBuilder.ApplicationServices
