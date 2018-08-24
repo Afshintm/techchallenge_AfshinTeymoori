@@ -13,6 +13,7 @@ namespace LetsBet.Api.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            throw new Exception("Throw in Value controller");
             return new string[] { "value1", "value2" };
         }
 

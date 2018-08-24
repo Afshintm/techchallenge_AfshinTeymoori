@@ -2,9 +2,10 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using LetsBet.BusinessServices;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LetsBet.Api
+namespace LetsBet.Api.Infrastructure
 {
     public static class ExtensionMethods
     {
@@ -37,6 +38,11 @@ namespace LetsBet.Api
             builder.RegisterType<BetBusinessServices>().As<IBetBusinessServices>().InstancePerLifetimeScope();
 
             return builder;
+        }
+
+        public static IApplicationBuilder UseMyMiddleware(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<MyMiddleware>();
         }
     }
 }
